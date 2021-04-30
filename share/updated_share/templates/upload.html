@@ -1,4 +1,22 @@
-{% extends "layout.html"%}
+{% extends "layout.html"%}{% block title %}Upload Here{% endblock %}
     {% block content%}
-    <h3>Upload here</h3> 
+
+
+<div style="text-align:center">
+
+<h3>Click below to upload file:</h3><br>
+
+
+<form action="/action_page.php">
+  <input type="file" id="myFile" name="filename">
+  <input type="submit">
+</form>
+
+
+
+</div>
+
+
+
+
 {% endblock %}
