@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return "User('{}', '{}', '{}')".format(self.username, self.email, self.image_File)
+        return "User('{}', '{}', '{}')".format(self.username, self.email, self.image_file)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

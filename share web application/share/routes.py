@@ -3,32 +3,33 @@ import secrets
 from PIL import Image
 from flask import Flask, render_template, url_for, flash, redirect, request
 from share import app, db, bcrypt
-from share.forms import Registration, LoginForm, UpdateAccountForm
+from share.forms import Registration, LoginForm, UpdateAccountForm, UploadForm
 from share.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 db.create_all()
 
 
-posts= [
-    {
-        'author' : 'Henok Assefa',
-        'title' : 'cosc 484',
-        'content': 'chapter one',
-        'date_posted': 'April 11, 2021'
-    },
-    {
-        'author' : 'Abel',
-        'title' : 'cosc 484',
-        'content': 'chapter two',
-        'date_posted': 'April 11, 2021'
-    }
+# posts= [
+#     {
+#         'author' : 'Henok Assefa',
+#         'title' : 'cosc 484',
+#         'content': 'chapter one',
+#         'date_posted': 'April 11, 2021'
+#     },
+#     {
+#         'author' : 'Abel',
+#         'title' : 'cosc 484',
+#         'content': 'chapter two',
+#         'date_posted': 'April 11, 2021'
+#     }
 
-]
+# ]
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template ('home.html', posts = posts)
+    posts = Post.query.all()
+    return render_template('home.html', posts=posts)
 
 # @app.route('/login')
 # def login():
@@ -122,3 +123,16 @@ def account():
     image_file = url_for('static', filename='pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+@app.route("/upload/new", methods=['GET', 'POST'])
+@login_required
+def new_upload():
+    form = UploadForm()
+    if form.validate_on_submit():
+        
+        upload = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(upload)
+        db.session.commit()
+        flash('uploaded', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_upload.html', title='New Upload', form = form)
