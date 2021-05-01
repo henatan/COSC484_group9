@@ -78,7 +78,7 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 class UploadForm(FlaskForm):
-    title= StringField('Title *', validators=[DataRequired()])
+    title= StringField('What are you sharing today? *', validators=[DataRequired()])
     schoolName= StringField('School Name')
     course= StringField('Course')
     content = TextAreaField('content *', validators=[DataRequired()])
