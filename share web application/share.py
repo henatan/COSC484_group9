@@ -1,8 +1,6 @@
-from website import share
+from share import app
 
-app = share ()
 
 if __name__ == '__main__':
     app.run(debug=True)
-
     
