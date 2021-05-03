@@ -60,5 +60,5 @@ class UploadForm(FlaskForm):
     schoolName= StringField('School Name')
     course= StringField('Course')
     content = TextAreaField('content *', validators=[DataRequired()])
-    uploaded_pic = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    uploaded_pic = FileField('Upload File', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'doc', 'docx', 'pdf', 'ppt', 'xlsx'])])
     submit = SubmitField('Upload')
